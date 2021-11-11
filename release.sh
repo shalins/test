@@ -4,8 +4,18 @@
 # current Git branch
 branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
 
+
+# get the last version number
+increment_last_tag() {
+    git describe --tags `git rev-list --tags --max-count=1` | 
+    awk -F. -v OFS=. 'NF==1{print ++$NF}; NF>1{if(length($NF+1)>length($NF))$(NF-1)++; $NF=sprintf("%0*d", length($NF), ($NF+1)%(10^length($NF))); print}'
+}
+
+
 # v1.0.0, v1.5.2, etc.
-versionLabel=v$1
+versionLabel=$(increment_last_tag)
+echo "versionLabel: $versionLabel"
+
 
 # establish branch and tag name variables
 masterBranch=main
