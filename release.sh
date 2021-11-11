@@ -2,8 +2,12 @@
 #!/bin/bash
 
 # current Git branch
-branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
+get_current_branch() {
+    git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,'
+}
 
+branch=$(get_current_branch)
+echo "Current branch is $branch"
 
 # get the last version number
 increment_last_tag() {
