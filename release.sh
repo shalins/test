@@ -36,7 +36,10 @@ git checkout $masterBranch
 git rebase $releaseBranch
  
 # create tag for new version from -master
-git tag $versionLabel
+git tag -a $versionLabel -m "Version $versionLabel"
 
 # remove release branch
 git branch -d $releaseBranch
+
+git push origin $versionLabel
+git push origin $masterBranch
