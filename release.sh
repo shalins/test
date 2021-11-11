@@ -43,7 +43,7 @@ git commit -am "Incrementing version number to $versionLabel"
  
 # merge release branch with the new version number into master
 git checkout $masterBranch
-git merge --no-ff $releaseBranch
+git rebase $releaseBranch
  
 # create tag for new version from -master
 git tag $versionLabel
