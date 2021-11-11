@@ -20,7 +20,6 @@ increment_last_tag() {
 versionLabel=$(increment_last_tag)
 echo "versionLabel: $versionLabel"
 
-
 # establish branch and tag name variables
 masterBranch=main
 releaseBranch=release-$versionLabel
@@ -32,14 +31,14 @@ git checkout -b $releaseBranch
 git commit -am "Incrementing version number to $versionLabel"
  
 # merge release branch with the new version number into master
-git checkout $masterBranch
-git rebase $releaseBranch
+# git checkout $masterBranch
+# git rebase $releaseBranch
  
 # create tag for new version from -master
 git tag -a $versionLabel -m "Version $versionLabel"
 
 # remove release branch
-git branch -d $releaseBranch
+# git branch -d $releaseBranch
 
 git push origin $versionLabel
-git push origin $masterBranch
+git push --set-upstream origin $releaseBranch
